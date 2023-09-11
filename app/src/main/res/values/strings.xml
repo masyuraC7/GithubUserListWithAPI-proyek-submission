@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">AplikasiGithubUser</string>
+    <string name="title_settings">Settings</string>
+    <string name="title_github_users">Github User\'s Search</string>
+    <string name="username">Username</string>
+    <string name="hint_github">Masukkan Username GitHub</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="error_message">Error Message</string>
+    <string name="title_activity_detail_git_hub_user">DetailGitHubUserActivity</string>
+    <!-- TODO: Remove or change this placeholder text -->
+</resources>
