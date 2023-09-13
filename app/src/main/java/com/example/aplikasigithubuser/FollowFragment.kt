@@ -172,7 +172,7 @@ class FollowFragment : Fragment() {
 
     private fun showRecyclerViewList(list: ArrayList<ItemsItem>) {
         binding.rvFollow.layoutManager = LinearLayoutManager(requireActivity())
-        val listAdapter = FollowFragmentAdapter(list)
+        val listAdapter = ListGitHubUserAdapter(list)
         binding.rvFollow.adapter = listAdapter
     }
 
