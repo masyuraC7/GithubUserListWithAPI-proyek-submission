@@ -28,16 +28,6 @@ class DetailGitHubUserActivity : AppCompatActivity() {
     lateinit var followers: String
     lateinit var following: String
 
-    companion object {
-        @StringRes
-        private val TAB_TITLES = intArrayOf(
-            R.string.followers,
-            R.string.following
-        )
-
-        const val KEY_LOGIN = "key_login"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailGitHubUserBinding.inflate(layoutInflater)
@@ -119,5 +109,15 @@ class DetailGitHubUserActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
         supportActionBar?.elevation = 0f
+    }
+
+    companion object {
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.followers,
+            R.string.following
+        )
+
+        const val KEY_LOGIN = "key_login"
     }
 }

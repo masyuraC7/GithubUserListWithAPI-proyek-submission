@@ -14,8 +14,8 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class FollowFragment : Fragment() {
-    private var _binding: FragmentFollowBinding? = null
-    private val binding get() = _binding!!
+
+    private lateinit var binding: FragmentFollowBinding
     private var followersUserList = ArrayList<ItemsItem>()
     private var followingUserList = ArrayList<ItemsItem>()
     private lateinit var viewModel: DetailViewModel
@@ -32,7 +32,7 @@ class FollowFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentFollowBinding.inflate(inflater, container, false)
+        binding = FragmentFollowBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -174,10 +174,5 @@ class FollowFragment : Fragment() {
         binding.rvFollow.layoutManager = LinearLayoutManager(requireActivity())
         val listAdapter = ListGitHubUserAdapter(list)
         binding.rvFollow.adapter = listAdapter
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 }

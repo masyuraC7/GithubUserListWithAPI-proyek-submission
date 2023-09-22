@@ -1,14 +1,14 @@
 package com.example.aplikasigithubuser.apiretrofit
 
+import com.example.aplikasigithubuser.BuildConfig
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiConfig {
-    private const val baseUrl = "https://api.github.com/"
 
     private fun getRetrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseUrl)
+            .baseUrl(BuildConfig.githubAPI)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
