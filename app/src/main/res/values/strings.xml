@@ -8,5 +8,6 @@
     <string name="following">Following</string>
     <string name="error_message">Error Message</string>
     <string name="title_activity_detail_git_hub_user">DetailGitHubUserActivity</string>
+    <string name="add_to_favorite">Add to Favorite</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

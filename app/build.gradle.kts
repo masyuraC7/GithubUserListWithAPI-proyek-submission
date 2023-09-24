@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -16,10 +18,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "githubAPI", "\"https://api.github.com/\"")
+        buildConfigField("String", "githubToken", "\"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\"")
     }
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
     buildTypes {
@@ -42,21 +46,37 @@ android {
 
 dependencies {
 
-//    Add
-    implementation("com.loopj.android:android-async-http:1.4.9")
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.google.code.gson:gson:2.9.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
-
-//    Original
+    // Original
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    // glide img
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // retrofit
+    val retrofit = "2.9.0"
+    implementation("com.squareup.retrofit2:retrofit:$retrofit")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+    // view model
+    val lifecycle = "2.6.2"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle")
+    implementation("androidx.fragment:fragment-ktx:1.6.1")
+    implementation("androidx.activity:activity-ktx:1.7.2")
+
+    // room
+    implementation("androidx.room:room-runtime:2.5.2")
+    ksp("androidx.room:room-compiler:2.5.2")
+
+    // dagger hilt injection
+    val hilt = "2.48"
+    implementation("com.google.dagger:hilt-android:$hilt")
+    ksp("com.google.dagger:hilt-compiler:$hilt")
 }

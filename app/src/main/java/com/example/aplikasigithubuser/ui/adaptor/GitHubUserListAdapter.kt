@@ -1,15 +1,16 @@
-package com.example.aplikasigithubuser
+package com.example.aplikasigithubuser.ui.adaptor
 
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.aplikasigithubuser.data.remote.response.ItemsItem
 import com.example.aplikasigithubuser.databinding.ItemUserGithubBinding
+import com.example.aplikasigithubuser.ui.DetailGitHubUserActivity
 
-
-class ListGitHubUserAdapter(private val listGitHubUser: ArrayList<ItemsItem>) :
-    RecyclerView.Adapter<ListGitHubUserAdapter.ListViewHolder>() {
+class GitHubUserListAdapter(private val listGitHubUser: ArrayList<ItemsItem>) :
+    RecyclerView.Adapter<GitHubUserListAdapter.ListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
         val binding = ItemUserGithubBinding.inflate(

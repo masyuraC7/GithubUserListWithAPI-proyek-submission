@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".data.MyApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,12 +16,12 @@
         android:theme="@style/Theme.AplikasiGithubUser"
         tools:targetApi="31">
         <activity
-            android:name=".DetailGitHubUserActivity"
+            android:name=".ui.DetailGitHubUserActivity"
             android:exported="false"
             android:label="@string/title_activity_detail_git_hub_user"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".ui.MainActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

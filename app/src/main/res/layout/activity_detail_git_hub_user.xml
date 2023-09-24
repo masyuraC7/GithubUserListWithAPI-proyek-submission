@@ -6,22 +6,12 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:orientation="vertical"
-    tools:context=".DetailGitHubUserActivity">
+    tools:context=".ui.DetailGitHubUserActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/md_theme_light_secondaryContainer">
-
-        <ProgressBar
-            android:id="@+id/progressBarDetail"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/tl_tabs"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -33,6 +23,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
+
+        <ProgressBar
+            android:id="@+id/progressBarDetail"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/tl_tabs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_title"
@@ -64,6 +64,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/followers"
             app:layout_constraintEnd_toStartOf="@+id/tv_subtitle"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_subtitle" />
 
         <TextView
@@ -72,6 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/following"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tv_subtitle"
             app:layout_constraintTop_toBottomOf="@+id/tv_subtitle" />
 
@@ -94,17 +96,31 @@
             android:layout_height="wrap_content"
             android:background="@color/md_theme_light_onPrimary"
             android:contentDescription="@string/followers"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tl_tabs" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/tv_error_message"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/vp_tabs" />
+            android:text=""
+            app:layout_constraintBottom_toBottomOf="@+id/vp_tabs"
+            app:layout_constraintEnd_toEndOf="@+id/vp_tabs"
+            app:layout_constraintStart_toStartOf="@+id/vp_tabs"
+            app:layout_constraintTop_toBottomOf="@+id/tl_tabs" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_fav_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            app:fabSize="normal"
+            android:src="@drawable/baseline_favorite_border_24_white"
+            android:contentDescription="@string/add_to_favorite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
