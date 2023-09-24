@@ -6,11 +6,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.aplikasigithubuser"
+    namespace = "com.mc7.aplikasigithubuser"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.aplikasigithubuser"
+        applicationId = "com.mc7.aplikasigithubuser"
         minSdk = 30
         targetSdk = 33
         versionCode = 1
@@ -68,12 +68,15 @@ dependencies {
     val lifecycle = "2.6.2"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle")
+
+    // android ktx
     implementation("androidx.fragment:fragment-ktx:1.6.1")
     implementation("androidx.activity:activity-ktx:1.7.2")
 
     // room
-    implementation("androidx.room:room-runtime:2.5.2")
-    ksp("androidx.room:room-compiler:2.5.2")
+    val room = "2.5.2"
+    implementation("androidx.room:room-runtime:$room")
+    ksp("androidx.room:room-compiler:$room")
 
     // dagger hilt injection
     val hilt = "2.48"

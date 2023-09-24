@@ -6,6 +6,12 @@
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings"
         android:title="@string/title_settings"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/favorite"
+        android:icon="@drawable/baseline_favorite_24_full_white"
+        android:title="@string/favorite_page"
+        app:showAsAction="ifRoom"/>
 
 </menu>
