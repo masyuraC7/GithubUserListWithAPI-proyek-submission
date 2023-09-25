@@ -17,8 +17,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/md_theme_light_primaryContainer">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -58,7 +57,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/username"
-                android:textColor="#0f0f0f"
                 android:textStyle="italic"
                 app:layout_constraintEnd_toEndOf="@+id/tv_title"
                 app:layout_constraintStart_toStartOf="@+id/tv_title"
@@ -92,30 +90,17 @@
                 android:contentDescription="@string/followers"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_followers"
-                app:tabBackground="@drawable/tab_color_selector"
-                app:tabSelectedTextColor="@color/md_theme_light_onPrimary"
-                app:tabTextColor="@color/md_theme_light_primary" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_followers" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_tabs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/md_theme_light_onPrimary"
                 android:contentDescription="@string/followers"
+                android:background="?attr/colorSurfaceContainerLowest"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tl_tabs" />
-
-            <TextView
-                android:id="@+id/tv_error_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=""
-                app:layout_constraintBottom_toBottomOf="@+id/vp_tabs"
-                app:layout_constraintEnd_toEndOf="@+id/vp_tabs"
-                app:layout_constraintStart_toStartOf="@+id/vp_tabs"
                 app:layout_constraintTop_toBottomOf="@+id/tl_tabs" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

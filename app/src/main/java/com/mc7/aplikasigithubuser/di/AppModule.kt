@@ -1,15 +1,25 @@
 package com.mc7.aplikasigithubuser.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.room.Room
 import com.mc7.aplikasigithubuser.BuildConfig
 import com.mc7.aplikasigithubuser.data.MyApp
+import com.mc7.aplikasigithubuser.data.SettingPreferences
+import com.mc7.aplikasigithubuser.data.dataStore
+import com.mc7.aplikasigithubuser.data.local.room.FavUserDao
+import com.mc7.aplikasigithubuser.data.local.room.FavUserDatabase
 import com.mc7.aplikasigithubuser.data.remote.retrofit.ApiService
 import com.mc7.aplikasigithubuser.data.repository.DetailUserRepositoryImp
+import com.mc7.aplikasigithubuser.data.repository.FavoriteUserRepositoryImp
 import com.mc7.aplikasigithubuser.data.repository.FollowRepositoryImp
 import com.mc7.aplikasigithubuser.data.repository.UserListRepositoryImp
 import com.mc7.aplikasigithubuser.domain.repository.DetailUserRepository
+import com.mc7.aplikasigithubuser.domain.repository.FavoriteUserRepository
 import com.mc7.aplikasigithubuser.domain.repository.FollowRepository
 import com.mc7.aplikasigithubuser.domain.repository.UserListRepository
+import com.mc7.aplikasigithubuser.utils.AppExecutors
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -65,5 +75,37 @@ object AppModule {
     @Provides
     fun provideFollowRepository(apiService: ApiService): FollowRepository {
         return FollowRepositoryImp(apiService)
+    }
+
+    @Provides
+    fun provideDataStorePreferences(appContext: MyApp): DataStore<Preferences> {
+        return appContext.dataStore
+    }
+
+    @Provides
+    fun provideSettingsPreferences(dataStore: DataStore<Preferences>): SettingPreferences {
+        return SettingPreferences(dataStore)
+    }
+
+    @Provides
+    fun provideFavUserDatabase(appContext: MyApp): FavUserDatabase{
+        return Room.databaseBuilder(appContext,
+            FavUserDatabase::class.java, "FavoriteUser.db")
+            .build()
+    }
+
+    @Provides
+    fun provideFavUserDao(favUserDatabase: FavUserDatabase): FavUserDao{
+        return favUserDatabase.favUserDao()
+    }
+
+    @Provides
+    fun provideAppExecutors(): AppExecutors{
+        return AppExecutors()
+    }
+
+    @Provides
+    fun provideFavoriteRepository(favUserDao: FavUserDao, appExecutors: AppExecutors): FavoriteUserRepository{
+        return FavoriteUserRepositoryImp(favUserDao, appExecutors)
     }
 }

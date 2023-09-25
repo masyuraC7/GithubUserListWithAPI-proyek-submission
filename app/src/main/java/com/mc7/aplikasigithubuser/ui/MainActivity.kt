@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mc7.aplikasigithubuser.R
 import com.mc7.aplikasigithubuser.data.Result
@@ -14,35 +15,44 @@ import com.mc7.aplikasigithubuser.data.remote.response.ItemsItem
 import com.mc7.aplikasigithubuser.databinding.ActivityMainBinding
 import com.mc7.aplikasigithubuser.ui.adaptor.GitHubUserListAdapter
 import com.mc7.aplikasigithubuser.ui.viewmodel.MainViewModel
+import com.mc7.aplikasigithubuser.ui.viewmodel.SettingsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private val settingViewModel: SettingsViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setSupportActionBar(binding.topAppBar)
+        settingViewModel.getThemeSettings().observe(this){ isDarkMode: Boolean ->
+            if (isDarkMode) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
 
-        val viewModel: MainViewModel by viewModels()
+        setSupportActionBar(binding.topAppBar)
 
         binding.rvListUserGithub.setHasFixedSize(true)
 
-        viewModel.isLoading.observe(this){
+        mainViewModel.isLoading.observe(this){
             showLoading(it)
         }
 
-        viewModel.isError.observe(this){
+        mainViewModel.isError.observe(this){
             showError(it)
         }
 
-        if (viewModel.isFilledGitHubUserList()){
-            viewModel.getSavedGitHubUserList()?.let { showRvListGitHubUser(it) }
+        if (mainViewModel.isFilledGitHubUserList()){
+            mainViewModel.getSavedGitHubUserList()?.let { showRvListGitHubUser(it) }
         }else{
-            setGitHubUserList(viewModel, "arip")
+            setGitHubUserList("arip")
         }
 
         binding.svUserGithub.setupWithSearchBar(binding.sbUserGithub)
@@ -53,43 +63,43 @@ class MainActivity : AppCompatActivity() {
 
                 val userSearch = searchText.text.toString().trim()
 
-                setGitHubUserList(viewModel, userSearch)
+                setGitHubUserList(userSearch)
                 false
             }
     }
 
-    private fun setGitHubUserList(viewModel: MainViewModel, userSearch: String){
-        viewModel.getGitHubUserList(userSearch)
+    private fun setGitHubUserList(userSearch: String){
+        mainViewModel.getGitHubUserList(userSearch)
             .observe(this){ result ->
                 if (result != null){
                     when (result) {
                         is Result.Loading -> {
-                            viewModel.isLoading(true)
+                            mainViewModel.isLoading(true)
                         }
                         is Result.Success -> {
                             if (result.data.isEmpty()){
                                 val errorMsg = "Data user tidak ditemukan"
-                                viewModel.isError(errorMsg)
+                                mainViewModel.isError(errorMsg)
                             }else{
-                                viewModel.isError("")
+                                mainViewModel.isError("")
                             }
-                            viewModel.isLoading(false)
+                            mainViewModel.isLoading(false)
 
                             val newsData = ArrayList<ItemsItem>()
                             newsData.addAll(result.data)
-                            viewModel.saveGitHubUserList(newsData)
+                            mainViewModel.saveGitHubUserList(newsData)
 
                             showRvListGitHubUser(newsData)
                         }
                         is Result.Error -> {
-                            viewModel.isLoading(false)
+                            mainViewModel.isLoading(false)
                             val msgError = "Terjadi kesalahan" + result.error
-                            viewModel.isError(msgError)
+                            mainViewModel.isError(msgError)
                         }
                     }
                 }else{
                     val errorMsg = "Gagal memuat API"
-                    viewModel.isError(errorMsg)
+                    mainViewModel.isError(errorMsg)
                 }
             }
     }
