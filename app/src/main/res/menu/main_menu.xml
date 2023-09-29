@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/favorite"
-        android:icon="@drawable/baseline_favorite_24_full_white"
+        android:icon="@drawable/baseline_favorite_24_full"
         android:title="@string/favorite_page"
         app:showAsAction="ifRoom"/>
 

@@ -8,7 +8,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:fillViewport="true"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,10 +94,10 @@
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/vp_tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/followers"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
                 android:background="?attr/colorSurfaceContainerLowest"
+                android:contentDescription="@string/followers"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         app:fabSize="normal"
-        android:src="@drawable/baseline_favorite_border_24_white"
+        android:src="@drawable/baseline_favorite_border_24"
         android:contentDescription="@string/add_to_favorite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

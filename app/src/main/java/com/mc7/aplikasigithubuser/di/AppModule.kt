@@ -11,15 +11,8 @@ import com.mc7.aplikasigithubuser.data.dataStore
 import com.mc7.aplikasigithubuser.data.local.room.FavUserDao
 import com.mc7.aplikasigithubuser.data.local.room.FavUserDatabase
 import com.mc7.aplikasigithubuser.data.remote.retrofit.ApiService
-import com.mc7.aplikasigithubuser.data.repository.DetailUserRepositoryImp
-import com.mc7.aplikasigithubuser.data.repository.FavoriteUserRepositoryImp
-import com.mc7.aplikasigithubuser.data.repository.FollowRepositoryImp
-import com.mc7.aplikasigithubuser.data.repository.UserListRepositoryImp
-import com.mc7.aplikasigithubuser.domain.repository.DetailUserRepository
-import com.mc7.aplikasigithubuser.domain.repository.FavoriteUserRepository
-import com.mc7.aplikasigithubuser.domain.repository.FollowRepository
-import com.mc7.aplikasigithubuser.domain.repository.UserListRepository
-import com.mc7.aplikasigithubuser.utils.AppExecutors
+import com.mc7.aplikasigithubuser.data.repository.GitHubUserRepositoryImp
+import com.mc7.aplikasigithubuser.domain.repository.GitHubUserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -63,31 +56,6 @@ object AppModule {
     }
 
     @Provides
-    fun provideUserListRepository(apiService: ApiService): UserListRepository {
-        return UserListRepositoryImp(apiService)
-    }
-
-    @Provides
-    fun provideDetailUserRepository(apiService: ApiService): DetailUserRepository {
-        return DetailUserRepositoryImp(apiService)
-    }
-
-    @Provides
-    fun provideFollowRepository(apiService: ApiService): FollowRepository {
-        return FollowRepositoryImp(apiService)
-    }
-
-    @Provides
-    fun provideDataStorePreferences(appContext: MyApp): DataStore<Preferences> {
-        return appContext.dataStore
-    }
-
-    @Provides
-    fun provideSettingsPreferences(dataStore: DataStore<Preferences>): SettingPreferences {
-        return SettingPreferences(dataStore)
-    }
-
-    @Provides
     fun provideFavUserDatabase(appContext: MyApp): FavUserDatabase{
         return Room.databaseBuilder(appContext,
             FavUserDatabase::class.java, "FavoriteUser.db")
@@ -100,12 +68,18 @@ object AppModule {
     }
 
     @Provides
-    fun provideAppExecutors(): AppExecutors{
-        return AppExecutors()
+    fun provideGitHubUserRepository(apiService: ApiService, favUserDao: FavUserDao):
+            GitHubUserRepository{
+        return GitHubUserRepositoryImp(apiService, favUserDao)
     }
 
     @Provides
-    fun provideFavoriteRepository(favUserDao: FavUserDao, appExecutors: AppExecutors): FavoriteUserRepository{
-        return FavoriteUserRepositoryImp(favUserDao, appExecutors)
+    fun provideDataStorePreferences(appContext: MyApp): DataStore<Preferences> {
+        return appContext.dataStore
+    }
+
+    @Provides
+    fun provideSettingsPreferences(dataStore: DataStore<Preferences>): SettingPreferences {
+        return SettingPreferences(dataStore)
     }
 }

@@ -4,45 +4,35 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mc7.aplikasigithubuser.data.local.entity.FavoriteUser
-import com.mc7.aplikasigithubuser.data.repository.FavoriteUserRepositoryImp
+import com.mc7.aplikasigithubuser.domain.repository.GitHubUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(
-    private val favoriteUserRepositoryImp: FavoriteUserRepositoryImp
+    private val gitHubUserRepository: GitHubUserRepository
 ): ViewModel() {
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
-    private val _isFavorite = MutableLiveData<Boolean>()
-    val isFavorite: LiveData<Boolean> = _isFavorite
+    private val _isError = MutableLiveData<String?>()
+    val isError: LiveData<String?> = _isError
 
-    private var dataUser = FavoriteUser()
+    private val _isFilledFavorite = MutableLiveData<List<FavoriteUser>?>()
+    val isFilledFavorite: LiveData<List<FavoriteUser>?> = _isFilledFavorite
 
-    fun dataUser(username: String, avatarUrl: String){
-        dataUser.username = username
-        dataUser.avatarUrl = avatarUrl
-    }
-
-    fun dataUser(): FavoriteUser{
-        return dataUser
-    }
-
-    fun isFavorite(isFavExist: Boolean){
-        _isFavorite.value = isFavExist
-    }
-
-    fun getAllFavUser(): LiveData<List<FavoriteUser>> =
-        favoriteUserRepositoryImp.getAllFavoriteUser()
-
-    fun getFavUserByUsername(username: String): LiveData<FavoriteUser> =
-        favoriteUserRepositoryImp.getFavoriteUserByUsername(username)
-
-
-    fun insert(favoriteUser: FavoriteUser) {
-        favoriteUserRepositoryImp.insert(favoriteUser)
-    }
-
-    fun delete(favoriteUser: FavoriteUser) {
-        favoriteUserRepositoryImp.delete(favoriteUser)
+    fun getAllFavUser() {
+        gitHubUserRepository.getAllFavoriteUser().observeForever{
+            _isLoading.value = true
+            if (it.isNotEmpty()) {
+                _isLoading.value = false
+                _isError.value = null
+                _isFilledFavorite.value = it
+            }else{
+                _isLoading.value = false
+                _isFilledFavorite.value = null
+                _isError.value = "Daftar favorite kosong"
+            }
+        }
     }
 }

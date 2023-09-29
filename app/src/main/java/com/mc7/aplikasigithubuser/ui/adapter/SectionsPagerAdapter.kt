@@ -1,4 +1,4 @@
-package com.mc7.aplikasigithubuser.ui.adaptor
+package com.mc7.aplikasigithubuser.ui.adapter
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

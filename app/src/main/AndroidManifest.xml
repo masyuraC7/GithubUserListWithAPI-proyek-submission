@@ -26,15 +26,16 @@
         </activity>
         <activity
             android:name=".ui.FavoriteActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"/>
         <activity
             android:name=".ui.SettingsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.MainActivity"/>
         <activity
             android:name=".ui.DetailGitHubUserActivity"
             android:exported="false"
-            android:label="@string/title_activity_detail_git_hub_user"
-            android:parentActivityName=".ui.MainActivity" />
+            android:label="@string/title_activity_detail_git_hub_user" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="false"/>
