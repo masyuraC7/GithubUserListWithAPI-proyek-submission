@@ -1,6 +1,7 @@
 package com.mc7.aplikasigithubuser.ui.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,7 +11,8 @@ import com.mc7.aplikasigithubuser.data.local.entity.FavoriteUser
 import com.mc7.aplikasigithubuser.databinding.ItemUserGithubBinding
 
 class FavoriteAdapter(
-    private val onClick: (FavoriteUser) -> Unit
+    private val onClick: (FavoriteUser) -> Unit,
+    private val onDelete: (FavoriteUser) -> Unit
 ) :
     ListAdapter<FavoriteUser, FavoriteAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -27,11 +29,15 @@ class FavoriteAdapter(
         holder.itemView.setOnClickListener {
             onClick(user)
         }
+        holder.binding.btnDelete.setOnClickListener {
+            onDelete(user)
+        }
     }
 
-    class MyViewHolder(private val binding: ItemUserGithubBinding) :
+    class MyViewHolder(val binding: ItemUserGithubBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(user: FavoriteUser){
+            binding.btnDelete.visibility = View.VISIBLE
             binding.txtUsernameGithub.text = user.username
             Glide.with(binding.root)
                 .load(user.avatarUrl)

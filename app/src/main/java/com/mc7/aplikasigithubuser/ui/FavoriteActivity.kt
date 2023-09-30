@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +20,14 @@ class FavoriteActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavoriteBinding
     private val viewModel: FavoriteViewModel by viewModels()
+
+    private val resultLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ){ result ->
+        if (result.resultCode == DetailGitHubUserActivity.RESULT_CODE && result.data != null){
+            viewModel.getAllFavUser()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +46,18 @@ class FavoriteActivity : AppCompatActivity() {
         }
 
         binding.rvListFavoriteUser.layoutManager = LinearLayoutManager(this)
-        val listAdapter = FavoriteAdapter { item ->
-            val intentToDetailActivity =
-                Intent(this@FavoriteActivity, DetailGitHubUserActivity::class.java)
-            intentToDetailActivity.putExtra("key_login", item.username)
-            startActivity(intentToDetailActivity)
-        }
+
+        val listAdapter = FavoriteAdapter(
+            onClick = { item ->
+                val intentToDetailActivity =
+                    Intent(this@FavoriteActivity, DetailGitHubUserActivity::class.java)
+                intentToDetailActivity.putExtra("key_login", item.username)
+                resultLauncher.launch(intentToDetailActivity)
+//                startActivity(intentToDetailActivity)
+            },
+            onDelete = { item ->
+                viewModel.delete(item)
+            })
         binding.rvListFavoriteUser.adapter = listAdapter
 
         viewModel.getAllFavUser()

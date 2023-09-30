@@ -1,6 +1,7 @@
 package com.mc7.aplikasigithubuser.ui
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -117,6 +118,14 @@ class DetailGitHubUserActivity : AppCompatActivity() {
         supportActionBar?.elevation = 0f
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val resultIntent = Intent()
+        resultIntent.putExtra(EXTRA_UPDATE_FAVORITE, "update")
+        setResult(RESULT_CODE, resultIntent)
+        finish()
+    }
+
     companion object {
         @StringRes
         private val TAB_TITLES = intArrayOf(
@@ -125,5 +134,7 @@ class DetailGitHubUserActivity : AppCompatActivity() {
         )
 
         const val KEY_LOGIN = "key_login"
+        const val EXTRA_UPDATE_FAVORITE = "extra_update_favorite"
+        const val RESULT_CODE = 110
     }
 }

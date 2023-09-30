@@ -3,9 +3,11 @@ package com.mc7.aplikasigithubuser.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.mc7.aplikasigithubuser.data.local.entity.FavoriteUser
 import com.mc7.aplikasigithubuser.domain.repository.GitHubUserRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -33,6 +35,12 @@ class FavoriteViewModel @Inject constructor(
                 _isFilledFavorite.value = null
                 _isError.value = "Daftar favorite kosong"
             }
+        }
+    }
+
+    fun delete(favoriteUser: FavoriteUser) {
+        viewModelScope.launch {
+            gitHubUserRepository.delete(favoriteUser)
         }
     }
 }
